@@ -8,6 +8,8 @@ export const TransactionWatcher = () => {
     const [ txnDataHash, upadteTxnDataHash] = useState<any>({}) // TxnDataHash hashes the txnData no basis of instrument type
 
   useEffect( () => {
+    if (window.subscribed) return;
+    else (window.subscribed = true);
     // To subscribe to this channel:
     var msg = {
         jsonrpc: "2.0",
@@ -55,6 +57,8 @@ export const TransactionWatcher = () => {
             <td>Amount</td>
             <td>Price</td>
             <td>Qty</td>
+            <td>Trade ID</td>
+            <td>Timestamp</td>
         </tr>
         {instruments.map( ins => (
           <TransactionList instrument={ins} list={txnDataHash[ins]}/>
